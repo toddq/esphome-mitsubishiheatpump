@@ -97,15 +97,16 @@ class MitsubishiHeatPump : public PollingComponent, public climate::Climate {
         // set_remote_temp(0) to switch back to the internal sensor.
         void set_remote_temperature(float);
 
+        sensor::Sensor* getCompressorFrequency() {
+            return this->compressorFrequency;
+        }
+
     protected:
         // HeatPump object using the underlying Arduino library.
         HeatPump* hp;
 
         // The ClimateTraits supported by this HeatPump.
         climate::ClimateTraits traits_;
-
-        // a Sensor to publish the state of the compresor frequency to
-        sensor::Sensor *compressorFrequency;
 
         // Allow the HeatPump class to use get_hw_serial_
         friend class HeatPump;
@@ -136,6 +137,8 @@ class MitsubishiHeatPump : public PollingComponent, public climate::Climate {
         // Retrieve the HardwareSerial pointer from friend and subclasses.
         HardwareSerial *hw_serial_;
         int baud_ = 0;
+        // a Sensor to publish the state of the compresor frequency to
+        sensor::Sensor *compressorFrequency;
 };
 
 #endif

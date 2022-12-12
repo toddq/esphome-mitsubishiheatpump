@@ -342,7 +342,7 @@ sensor:
   - platform: custom
     lambda: |-
       auto hp = id(${name});
-      return {hp->compressorFrequency};
+      return {hp->getCompressorFrequency()};
     sensors:
       - name: "${name} Compressor Frequency"
         # I don't know that this unit is correct, but something is required to get line graphs
