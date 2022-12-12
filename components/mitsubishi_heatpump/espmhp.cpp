@@ -432,6 +432,7 @@ void MitsubishiHeatPump::setup() {
     this->target_temperature = NAN;
     this->fan_mode = climate::CLIMATE_FAN_OFF;
     this->swing_mode = climate::CLIMATE_SWING_OFF;
+    this->compressorFrequency = new sensor::Sensor();
 
 #ifdef USE_CALLBACKS
     hp->setSettingsChangedCallback(
