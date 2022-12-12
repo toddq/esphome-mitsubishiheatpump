@@ -332,6 +332,23 @@ api:
         - lambda: 'id(hp).set_remote_temperature(0);'
 ```
 
+## Compressor Frequency
+
+If your heatpump has a variable speed compressor, you can configure an additional sensor to publish its state.
+
+```yaml
+sensor:
+  # track the speed the heatpump compressor is running at
+  - platform: custom
+    lambda: |-
+      auto hp = id(${name});
+      return {hp->compressorFrequency};
+    sensors:
+      - name: "${name} Compressor Frequency"
+        # I don't know that this unit is correct, but something is required to get line graphs
+        unit_of_measurement: '%'
+```
+
 # See Also
 
 ## Other Implementations
