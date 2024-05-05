@@ -403,7 +403,11 @@ void MitsubishiHeatPump::hpStatusChanged(heatpumpStatus currentStatus) {
     }
 
     this->publish_state();
-    this->compressorFrequency->publish_state(currentStatus.compressorFrequency);
+    int compressorFrequency = currentStatus.compressorFrequency;
+    if (compressorFrequency < 5) {
+        compressorFrequency = 0;
+    }
+    this->compressorFrequency->publish_state(compressorFrequency);
 }
 
 void MitsubishiHeatPump::set_remote_temperature(float temp) {
