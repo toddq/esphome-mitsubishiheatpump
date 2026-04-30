@@ -36,9 +36,8 @@ def valid_uart(uart):
     return cv.one_of(*uarts, upper=True)(uart)
 
 
-CONFIG_SCHEMA = climate.CLIMATE_SCHEMA.extend(
+CONFIG_SCHEMA = climate.climate_schema(MitsubishiHeatPump).extend(
     {
-        cv.GenerateID(): cv.declare_id(MitsubishiHeatPump),
         cv.Optional(CONF_HARDWARE_UART, default="UART0"): valid_uart,
         cv.Optional(CONF_BAUD_RATE): cv.positive_int,
         # If polling interval is greater than 9 seconds, the HeatPump library
@@ -63,7 +62,7 @@ CONFIG_SCHEMA = climate.CLIMATE_SCHEMA.extend(
 
 @coroutine
 def to_code(config):
-    serial = HARDWARE_UART_TO_SERIAL[config[CONF_HARDWARE_UART]]
+    serial = HARDWARE_UART_TO_SERIAL[CORE.target_platform][config[CONF_HARDWARE_UART]]
     var = cg.new_Pvariable(config[CONF_ID], cg.RawExpression(f"&{serial}"))
 
     if CONF_BAUD_RATE in config:

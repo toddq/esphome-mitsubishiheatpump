@@ -19,6 +19,7 @@
 
 #include "esphome.h"
 #include "esphome/core/preferences.h"
+#include <Arduino.h>
 
 #include "HeatPump.h"
 using namespace esphome;
