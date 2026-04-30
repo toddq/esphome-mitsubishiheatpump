@@ -19,6 +19,7 @@
 
 #include "esphome.h"
 #include "esphome/core/preferences.h"
+#include <Arduino.h>
 
 #include "HeatPump.h"
 using namespace esphome;
@@ -56,6 +57,12 @@ class MitsubishiHeatPump : public PollingComponent, public climate::Climate {
             HardwareSerial* hw_serial,
             uint32_t poll_interval=ESPMHP_POLL_INTERVAL_DEFAULT
         );
+
+        /**
+         * Create a new MitsubishiHeatPump object with default settings.
+         * Defaults to &Serial, 500ms (ESP8266 UART0)
+         */
+        MitsubishiHeatPump();
 
         // Print a banner with library information.
         void banner() {
